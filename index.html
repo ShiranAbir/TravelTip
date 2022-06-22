@@ -14,13 +14,13 @@
         <nav class="main-nav">
             <h1>TravelTip</h1>
             <input class="location-input" type="text" placeholder="Enter location">
-            <button class="main-btn go-btn">GO</button>
+            <button onclick="onSearch()" class="main-btn go-btn">GO</button>
             <button onclick="onPanToUserLocation()" class="main-btn my-location-btn">My location</button>
         </nav>
     </header>
     <section class="current-location">
         <h3>Location: <span></span></h3>
-        <button class="main-btn copy-location-btn">Copy location</button>
+        <button onclick="onCopyLocation()" class="main-btn copy-location-btn">Copy location</button>
     </section>
     <section class="map">
         <div id="map" style="width: 50%; height: 500px;"></div>
@@ -33,7 +33,7 @@
     <p>You are at: <span class="user-pos"></span></p>
     <p>Locations: <span class="locs"></span></p>
 
-
+    <script src="lib/axios.js"></script>
     <script type="module" src="js/app.controller.js"></script>
     <script src="/apiKey.js"></script>
 </body>

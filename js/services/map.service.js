@@ -1,9 +1,10 @@
 
-
 export const mapService = {
     initMap,
     addMarker,
-    panTo
+    panTo,
+    getMapPos,
+    searchAddress
 }
 
 var gMap;
@@ -20,21 +21,21 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
             })
             console.log('Map!', gMap);
             gMap.addListener("click", (mapsMouseEvent) => {
-               const location = mapsMouseEvent.latLng
+                const location = mapsMouseEvent.latLng
                 addMarker(location)
-              });
+            })
         })
 }
 
-function addMarker(location){//({ location, id, name }) {
- //console.log('location, id, name', location, id, name)
-  const marker = new google.maps.Marker({
-    position: location,
-    map: gMap,
-    //id,
-    title: 'Miki mouse',
-  })
-  
+function addMarker(location) {//({ location, id, name }) {
+    //console.log('location, id, name', location, id, name)
+    const marker = new google.maps.Marker({
+        position: location,
+        map: gMap,
+        //id,
+        title: 'Miki mouse',
+    })
+
 }
 
 function panTo(lat, lng) {
@@ -55,4 +56,14 @@ function _connectGoogleApi() {
         elGoogleApi.onload = resolve;
         elGoogleApi.onerror = () => reject('Google script failed to load')
     })
+}
+
+function getMapPos() {
+    var lat = gMap.getCenter().lat()
+    var lng = gMap.getCenter().lng()
+    return { lat, lng }
+}
+
+function searchAddress(location) {
+    return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=${gAPIKey}`)
 }
