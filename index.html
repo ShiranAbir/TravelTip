@@ -1,22 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TravelTip2</title>
+    <link rel="stylesheet" href="css/style.css">
+    <title>TravelTip</title>
 </head>
+
 <body>
-    <h1>TravelTip Starter</h1>
-    <div id="map" style="width: 100%; height: 400px;"></div>
+    <header>
+        <nav class="main-nav">
+            <h1>TravelTip</h1>
+            <input class="location-input" type="text" placeholder="Enter location">
+            <button class="main-btn go-btn">GO</button>
+            <button class="main-btn my-location-btn">My location</button>
+        </nav>
+    </header>
+    <section class="current-location">
+        <h3>Location: <span></span></h3>
+        <button class="main-btn copy-location-btn">Copy location</button>
+    </section>
+    <section class="map">
+        <div id="map" style="width: 50%; height: 500px;"></div>
+    </section>
     <button onclick="onAddMarker()" class="btn-add-marker">Add Marker Speific Location</button>
     <button onclick="onGetUserPos()" class="btn-user-pos">Get User Position</button>
     <button onclick="onGetLocs()" class="btn-get-locs">Get Locations</button>
-    <button onclick="onPanTo()"class="btn-pan">Pan Map to Tokyo</button>
+    <button onclick="onPanTo()" class="btn-pan">Pan Map to Tokyo</button>
 
     <p>You are at: <span class="user-pos"></span></p>
     <p>Locations: <span class="locs"></span></p>
-    
+
 
     <script type="module" src="js/app.controller.js"></script>
+    <script src="/apiKey.js"></script>
 </body>
+
 </html>

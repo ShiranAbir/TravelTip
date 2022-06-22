@@ -1,0 +1,67 @@
+
+body{
+    background-color: #F68658;
+}
+
+.main-nav{
+    position: relative;
+    display:grid;
+    grid-template-columns: repeat(10,1fr);
+    grid-template-rows: 4rem;
+    column-gap: 1rem;
+    margin-top: 2rem;
+}
+
+.main-nav h1{
+    font-size: 2.5rem;
+    grid-column-start: 1;
+    grid-column-end: 2;
+    line-height: 2px;
+}
+
+.location-input{
+    background-color: #D5D7DD;
+    border: 2px solid #434C6C;
+    grid-column-start: 8;
+    grid-column-end: 9;
+}
+
+.main-btn{
+    background-color: #7F7F7F;
+    border: 2px solid #434C6C;
+    color: #D5D7DD;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.go-btn{
+    grid-column-start: 9;
+    grid-column-end: 10;
+}
+
+.my-location-btn{
+    grid-column-start: 10;
+    grid-column-end: 11;
+}
+
+.current-location{
+    position: relative;
+    padding: 3rem;
+}
+
+.copy-location-btn{
+    float: right;
+    font-size: 2rem;
+    padding: 0.2rem;
+}
+
+.current-location h3{
+    display: inline;
+    font-size: 2rem;
+}
+
+.map div{
+    display: flex; 
+    float: right;
+    margin-top: 2rem;
+}
