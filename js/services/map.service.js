@@ -3,7 +3,9 @@
 export const mapService = {
     initMap,
     addMarker,
-    panTo
+    panTo,
+    getMapPos,
+    searchAddress
 }
 
 var gMap;
@@ -25,7 +27,7 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
                     // Close the current InfoWindow.
                     infoWindow.close();
                 }
-                
+
                 // Create a new InfoWindow.
                 infoWindow = new google.maps.InfoWindow({
                   position: mapsMouseEvent.latLng,
@@ -66,4 +68,14 @@ function _connectGoogleApi() {
         elGoogleApi.onload = resolve;
         elGoogleApi.onerror = () => reject('Google script failed to load')
     })
+}
+
+function getMapPos(){
+    var lat = gMap.getCenter().lat()
+    var lng = gMap.getCenter().lng()
+    return {lat,lng}
+}
+
+function searchAddress(location){
+    return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=${gAPIKey}`)
 }
