@@ -1,18 +1,19 @@
 import { locService } from './services/loc.service.js'
 import { mapService } from './services/map.service.js'
 
-window.onload = onInit;
-window.onAddMarker = onAddMarker;
-window.onPanTo = onPanTo;
-window.onGetLocs = onGetLocs;
-window.onGetUserPos = onGetUserPos;
+window.onload = onInit
+window.onAddMarker = onAddMarker
+window.onPanTo = onPanTo
+window.onGetLocs = onGetLocs
+window.onGetUserPos = onGetUserPos
+window.onPanToUserLocation = onPanToUserLocation
 
 function onInit() {
     mapService.initMap()
         .then(() => {
-            console.log('Map is ready');
+            console.log('Map is ready')
         })
-        .catch(() => console.log('Error: cannot init map'));
+        .catch(() => console.log('Error: cannot init map'))
 }
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
@@ -42,6 +43,7 @@ function onGetUserPos() {
             console.log('User position is:', pos.coords);
             document.querySelector('.user-pos').innerText =
                 `Latitude: ${pos.coords.latitude} - Longitude: ${pos.coords.longitude}`
+
         })
         .catch(err => {
             console.log('err!!!', err);
@@ -50,4 +52,16 @@ function onGetUserPos() {
 function onPanTo() {
     console.log('Panning the Map');
     mapService.panTo(35.6895, 139.6917);
+}
+
+function onPanToUserLocation(){
+    getPosition()
+        .then(pos => {
+            mapService.panTo(pos.coords.latitude,pos.coords.longitude)
+            console.log('User position is:', pos.coords);
+            mapService.addMarker({ lat: pos.coords.latitude, lng: pos.coords.longitude })
+        })
+        .catch(err => {
+            console.log('err!!!', err);
+        })
 }
