@@ -10,10 +10,19 @@ window.onPanToUserLocation = onPanToUserLocation
 
 function onInit() {
     mapService.initMap()
-        .then(() => {
-            console.log('Map is ready')
-        })
-        .catch(() => console.log('Error: cannot init map'))
+    .then(() => {
+        console.log('Map is ready')
+       // addMapListener()
+    })
+    .catch(() => console.log('Error: cannot init map'))
+}
+
+function addMapListener() {
+    mapService.gMap.addListener('click', (e) => {
+        console.log(e.latlng)
+      })
+
+      renderMarkers()
 }
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
@@ -54,10 +63,10 @@ function onPanTo() {
     mapService.panTo(35.6895, 139.6917);
 }
 
-function onPanToUserLocation(){
+function onPanToUserLocation() {
     getPosition()
         .then(pos => {
-            mapService.panTo(pos.coords.latitude,pos.coords.longitude)
+            mapService.panTo(pos.coords.latitude, pos.coords.longitude)
             console.log('User position is:', pos.coords);
             mapService.addMarker({ lat: pos.coords.latitude, lng: pos.coords.longitude })
         })

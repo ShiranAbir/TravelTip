@@ -19,32 +19,22 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
                 zoom: 15
             })
             console.log('Map!', gMap);
-            var infoWindow;
             gMap.addListener("click", (mapsMouseEvent) => {
-                if (infoWindow) {
-                    // Close the current InfoWindow.
-                    infoWindow.close();
-                }
-                
-                // Create a new InfoWindow.
-                infoWindow = new google.maps.InfoWindow({
-                  position: mapsMouseEvent.latLng,
-                });
-                infoWindow.setContent(
-                  JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
-                );
-                infoWindow.open(gMap);
+               const location = mapsMouseEvent.latLng
+                addMarker(location)
               });
         })
 }
 
-function addMarker(loc) {
-    var marker = new google.maps.Marker({
-        position: loc,
-        map: gMap,
-        title: 'Hello World!'
-    });
-    return marker;
+function addMarker(location){//({ location, id, name }) {
+ //console.log('location, id, name', location, id, name)
+  const marker = new google.maps.Marker({
+    position: location,
+    map: gMap,
+    //id,
+    title: 'Miki mouse',
+  })
+  
 }
 
 function panTo(lat, lng) {
@@ -53,10 +43,9 @@ function panTo(lat, lng) {
 }
 
 
-
 function _connectGoogleApi() {
     if (window.google) return Promise.resolve()
-    // const API_KEY = ''; //TODO: Enter your API Key
+    // const API_KEY = ''; //TODO: Enter your API eyK
     var elGoogleApi = document.createElement('script')
     elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${gAPIKey}`
     elGoogleApi.async = true
