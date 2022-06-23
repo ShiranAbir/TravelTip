@@ -10,28 +10,37 @@
 </head>
 
 <body>
-    <header>
-        <nav class="main-nav">
+    <header class="main-nav-container">
+        <div class="main-nav">
             <h1>TravelTip</h1>
-            <input class="location-input" type="text" placeholder="Enter location">
-            <button onclick="onSearch()" class="main-btn go-btn">GO</button>
-            <button onclick="onPanToUserLocation()" class="main-btn my-location-btn">My location</button>
-        </nav>
+            <div class="search-container">
+                <input class="main-btn location-input" type="text" placeholder="Enter location">
+                <button onclick="onSearch()" class="main-btn go-btn">GO</button>
+                <button onclick="onPanToUserLocation()" class="main-btn my-location-btn">My location</button>
+            </div>
+        </div>
     </header>
-    <section class="current-location">
-        <h3>Location: <span></span></h3>
-        <button onclick="onCopyLocation()" class="main-btn copy-location-btn">Copy location</button>
-    </section>
-    <section class="map">
-        <div id="map" style="width: 50%; height: 500px;"></div>
-    </section>
-    <button onclick="onAddMarker()" class="btn-add-marker">Add Marker Speific Location</button>
-    <button onclick="onGetUserPos()" class="btn-user-pos">Get User Position</button>
-    <button onclick="onGetLocs()" class="btn-get-locs">Get Locations</button>
-    <button onclick="onPanTo()" class="btn-pan">Pan Map to Tokyo</button>
 
-    <p>You are at: <span class="user-pos"></span></p>
-    <p>Locations: <span class="locs"></span></p>
+    <section class="main-container">
+        <div class="current-location-container">
+            <div class="location"><h2>Location:</h2><span></span></div>
+            <div><button class="btn-ocation" onclick="onCopyLocation()" class="main-btn copy-location-btn">Copy location</button></div>
+        </div>
+        <div class="map-data-container">
+            <div class="locations-table"></div>
+            <div class="map"></div>
+        </div>
+        <div class="location-actions-btn-container">
+            <button onclick="onAddMarker()" class="btn-add-marker">Add Marker Speific Location</button>
+            <button onclick="onGetUserPos()" class="btn-user-pos">Get User Position</button>
+            <button onclick="onGetLocs()" class="btn-get-locs">Get Locations</button>
+            <button onclick="onPanTo()" class="btn-pan">Pan Map to Tokyo</button>
+        </div>
+        <div>
+        <!-- <p>You are at: <span class="user-pos"></span></p>
+        <p>Locations: <span class="locs"></span></p> -->
+        </div>
+    </section>
 
     <script src="lib/axios.js"></script>
     <script type="module" src="js/app.controller.js"></script>

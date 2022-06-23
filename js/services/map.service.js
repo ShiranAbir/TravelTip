@@ -4,10 +4,11 @@ export const mapService = {
     addMarker,
     panTo,
     getMapPos,
-    searchAddress
+    searchAddress,
+    getLocationName
 }
 
-var gMap;
+export var gMap
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {
     console.log('InitMap');
@@ -15,15 +16,11 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
         .then(() => {
             console.log('google available');
             gMap = new google.maps.Map(
-                document.querySelector('#map'), {
+                document.querySelector('.map'), {
                 center: { lat, lng },
                 zoom: 15
             })
             console.log('Map!', gMap);
-            gMap.addListener("click", (mapsMouseEvent) => {
-                const location = mapsMouseEvent.latLng
-                addMarker(location)
-            })
         })
 }
 
@@ -38,11 +35,47 @@ function addMarker(location) {//({ location, id, name }) {
 
 }
 
+function getLocationName(location) {
+    return new Promise((resolve, reject) => {
+        const geocoder = new google.maps.Geocoder()
+        geocoder.geocode({'latLng': location}, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                const address = results[0].address_components
+                resolve(_getAddressString(results))
+            } else {
+                reject("Geocode was not successful for the following reason: " + status)
+
+            }
+        })
+    })
+}
+
+function _getAddressString(addressData){
+    let address = addressData[0].address_components
+    let streetNumber = ''
+    let streetName = ''
+    let cityName = ''
+    let countryName = ''
+
+    for(let i=0; i < address.length; i++){
+        if(address[i].types.includes('street_number')){
+            streetNumber = address[i].long_name
+        }else if(address[i].types.includes('route')){
+            streetName = address[i].long_name ? address[i].long_name + ' St.' : ''
+        }else if(address[i].types.includes('locality')){
+            cityName = address[i].long_name ? address[i].long_name + ', ' : ''
+        }else if(address[i].types.includes('country')){
+            countryName = address[i].long_name
+        }
+    }
+
+    return {streetNumber, streetName, cityName, countryName}
+}
+
 function panTo(lat, lng) {
     var laLatLng = new google.maps.LatLng(lat, lng);
     gMap.panTo(laLatLng);
 }
-
 
 function _connectGoogleApi() {
     if (window.google) return Promise.resolve()
